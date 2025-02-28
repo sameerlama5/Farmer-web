@@ -28,7 +28,6 @@ const registerUser = async (req, res) => {
   req.body.password = await bcrypt.hash(req.body.password, saltRounds);
   User.create(req.body)
   res.send({ msg: req.body.role + " created successfully" })
-
 }
 
 const loginUser = async (req, res) => {
