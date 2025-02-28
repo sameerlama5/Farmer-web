@@ -21,7 +21,7 @@ const validationSchema = Yup.object({
     .required("Password is required"),
 });
 
-export default function RegisterPage() {
+export default function LoginPage() {
   const dispatch = useDispatch();
   const router = useRouter();
 
@@ -41,9 +41,9 @@ export default function RegisterPage() {
           dispatch(loginUser(data));
           toast(String(data.msg));
         }
-        if (isLoggednIn) {
+        if (data.isLoggednIn) {
           if (data?.user?.role == "vender") {
-            router.push(`/${data?.user?.role}/dashboard`);
+            router.push(`/dashboard`);
           } else {
             router.push("/");
           }
@@ -58,12 +58,12 @@ export default function RegisterPage() {
   });
 
   return (
-    <div className="max-w-2xl mx-auto backdrop-blur-sm bg-white/10 rounded-2xl shadow-[0_0_15px_rgba(255,255,255,0.07)] p-8 border border-white/10">
+    <div className="max-w-2xl mx-auto backdrop-blur-sm bg-white/10 rounded-2xl p-8 border-[2px] border-green-400">
       <form onSubmit={formik.handleSubmit} className="space-y-6">
         <div className="flex flex-col gap-6 md:grid-cols-2">
           {/* Email Field */}
           <div className="space-y-2">
-            <Label htmlFor="email" className="text-white">
+            <Label htmlFor="email">
               Email
             </Label>
             <div className="relative">
@@ -73,7 +73,7 @@ export default function RegisterPage() {
                 name="email"
                 type="email"
                 placeholder="you@example.com"
-                className="pl-10 bg-black/50 border-white/20 text-white placeholder:text-gray-500"
+                className="bg-white border-[2px] border-green-400 text-gray-400 py-[20px] px-[30px] outline-none"
                 {...formik.getFieldProps("email")}
               />
             </div>
@@ -84,7 +84,7 @@ export default function RegisterPage() {
 
           {/* Password Field */}
           <div className="space-y-2">
-            <Label htmlFor="password" className="text-white">
+            <Label htmlFor="password">
               Password
             </Label>
             <div className="relative">
@@ -94,7 +94,7 @@ export default function RegisterPage() {
                 name="password"
                 type="password"
                 placeholder="••••••••"
-                className="pl-10 bg-black/50 border-white/20 text-white placeholder:text-gray-500"
+                className="bg-white border-[2px] border-green-400 text-gray-400 py-[20px] px-[30px] outline-none"
                 {...formik.getFieldProps("password")}
               />
             </div>
@@ -108,27 +108,26 @@ export default function RegisterPage() {
         <div className="pt-4">
           <Button
             type="submit"
-            className="w-full bg-white text-black hover:bg-white/90 transition-all duration-200"
+            className="w-full bg-green-400 text-white hover:bg-green-300 transition-all duration-200 py-[10px] px-[30px]"
             disabled={formik.isSubmitting}
           >
             {formik.isSubmitting ? "Signing In..." : "Login"}
           </Button>
         </div>
-
-        {/* Register Link */}
-        <div className="mt-6 text-center">
-          <p className="text-sm text-gray-400">
-            Don't have an account?{" "}
-            <Button
-              variant="link"
-              className="text-white hover:text-gray-200 p-0"
-              onClick={() => router.push("/register")}
-            >
-              Create an account
-            </Button>
-          </p>
-        </div>
       </form>
+      {/* Register Link */}
+      <div className="mt-6 text-center">
+        <p className="text-sm text-black">
+          Don't have an account?{" "}
+          <Button
+            variant="link"
+            className="text-blue-500 hover:text-underline p-0"
+            onClick={() => router.push("/register")}
+          >
+            Create an account
+          </Button>
+        </p>
+      </div>
     </div>
   );
 }

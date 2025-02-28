@@ -15,7 +15,7 @@ import {
 import { Label } from "@/components/ui/label";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { toast } from "sonner";
+import { useState } from "react";
 
 const phoneRegExp = /^[0-9]{10}$/;
 
@@ -30,64 +30,56 @@ const validationSchema = Yup.object({
     .min(8, "Password must be at least 8 characters")
     .required("Password is required"),
   role: Yup.string()
-    .oneOf(["admin", "student", "teacher"], "Invalid role")
+    .oneOf(["Customer", "Vendor"], "Invalid role")
     .required("Role is required"),
   fullName: Yup.string()
     .min(2, "Name must be at least 2 characters")
     .required("Full name is required"),
-  fatherName: Yup.string()
-    .min(2, "Father's name must be at least 2 characters")
-    .required("Father's name is required"),
-  motherName: Yup.string()
-    .min(2, "Mother's name must be at least 2 characters")
-    .required("Mother's name is required"),
+  addressName: Yup.string()
+    .min(1, "Address name must be at least 1 characters")
+    .required("Address name is required"),
 });
 
 export default function RegisterPage() {
+  const [loading, setLoading] = useState(false);
   const formik = useFormik({
     initialValues: {
       email: "",
       phoneNumber: "",
+      fullName: "",
       password: "",
       role: "",
-      fullName: "",
-      address: "",
+      addressName: "",
     },
     validationSchema,
-    onSubmit: async (values) => {
-        console.log("name");
+    onSubmit: async (values, { resetForm }) => {
+      setLoading(true);
       try {
         const { data } = await axios.post(
           `${process.env.NEXT_PUBLIC_API_URL}/register`,
           values
         );
-        if (data) {
-          toast({
-            title: data.msg,
-          });
-        }
+        alert(data.msg);
+        resetForm();
       } catch (error) {
-        toast({
-          variant: "destructive",
-          title: error?.response?.data?.msg,
-        });
+        if (error.response && error.response.data.msg) {
+          alert(error.response.data.msg);
+        } else {
+          alert("An unexpected error occurred. Please try again.");
+        }
+      } finally {
+        setLoading(false);
       }
     },
   });
   const router = useRouter();
 
   return (
-    <div className="max-w-2xl mx-auto backdrop-blur-sm bg-white/10 rounded-2xl shadow-[0_0_15px_rgba(255,255,255,0.07)] p-8 border border-white/10">
-      <h2 className="text-2xl font-semibold text-center mb-8">
-        Create Your Account
-      </h2>
-
+    <div className="max-w-2xl mx-auto backdrop-blur-sm rounded-2xl  p-8 border-[2px] border-green-400">
       <form onSubmit={formik.handleSubmit} className="space-y-6">
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           <div className="space-y-2">
-            <Label htmlFor="fullName" className="text-white">
-              Full Name
-            </Label>
+            <Label htmlFor="fullName">Full Name</Label>
             <div className="relative">
               <User className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
               <Input
@@ -95,7 +87,7 @@ export default function RegisterPage() {
                 name="fullName"
                 type="text"
                 placeholder="John Doe"
-                className="pl-10 bg-black/50 border-white/20 text-white placeholder:text-gray-500"
+                className="bg-white border-[2px] border-green-400 text-gray-400 py-[20px] px-[30px] outline-none"
                 {...formik.getFieldProps("fullName")}
               />
             </div>
@@ -105,9 +97,7 @@ export default function RegisterPage() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="email" className="text-white">
-              Email
-            </Label>
+            <Label htmlFor="email">Email</Label>
             <div className="relative">
               <Mail className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
               <Input
@@ -115,7 +105,7 @@ export default function RegisterPage() {
                 name="email"
                 type="email"
                 placeholder="you@example.com"
-                className="pl-10 bg-black/50 border-white/20 text-white placeholder:text-gray-500"
+                className="bg-white border-[2px] border-green-400 text-gray-400 py-[20px] px-[30px] outline-none"
                 {...formik.getFieldProps("email")}
               />
             </div>
@@ -125,9 +115,7 @@ export default function RegisterPage() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="phoneNumber" className="text-white">
-              Phone Number
-            </Label>
+            <Label htmlFor="phoneNumbe">Phone Number</Label>
             <div className="relative">
               <Phone className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
               <Input
@@ -135,7 +123,7 @@ export default function RegisterPage() {
                 name="phoneNumber"
                 type="tel"
                 placeholder="1234567890"
-                className="pl-10 bg-black/50 border-white/20 text-white placeholder:text-gray-500"
+                className="bg-white border-[2px] border-green-400 text-gray-400 py-[20px] px-[30px] outline-none"
                 {...formik.getFieldProps("phoneNumber")}
               />
             </div>
@@ -147,9 +135,7 @@ export default function RegisterPage() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="password" className="text-white">
-              Password
-            </Label>
+            <Label htmlFor="password">Password</Label>
             <div className="relative">
               <Lock className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
               <Input
@@ -157,7 +143,7 @@ export default function RegisterPage() {
                 name="password"
                 type="password"
                 placeholder="••••••••"
-                className="pl-10 bg-black/50 border-white/20 text-white placeholder:text-gray-500"
+                className="bg-white border-[2px] border-green-400 text-gray-400 py-[20px] px-[30px] outline-none"
                 {...formik.getFieldProps("password")}
               />
             </div>
@@ -167,17 +153,15 @@ export default function RegisterPage() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="addressName" className="text-white">
-              Address
-            </Label>
+            <Label htmlFor="addressName">Address</Label>
             <div className="relative">
-              <Users className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
+              <Users className="absolute left-3 top-3 h-5 w-5 text-green-400" />
               <Input
                 id="addressName"
                 name="addressName"
                 type="text"
                 placeholder="Address"
-                className="pl-10 bg-black/50 border-white/20 text-white placeholder:text-gray-500"
+                className="bg-white border-[2px] border-green-400 text-gray-400 py-[20px] px-[30px] outline-none"
                 {...formik.getFieldProps("addressName")}
               />
             </div>
@@ -189,21 +173,19 @@ export default function RegisterPage() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="role" className="text-white">
-              Role
-            </Label>
+            <Label htmlFor="role">Role</Label>
             <Select
               name="role"
               onValueChange={(value) =>
                 formik.setFieldValue("role", value, true)
               }
             >
-              <SelectTrigger className="bg-black/50 border-white/20 text-white">
+              <SelectTrigger className="bg-white border-[2px] border-green-400 text-gray-400 py-[20px] px-[30px] outline-none">
                 <SelectValue placeholder="Select your role" />
               </SelectTrigger>
-              <SelectContent className="bg-black text-white border-white/20">
-                <SelectItem value="student">Vendor(Farmer)</SelectItem>
-                <SelectItem value="teacher">Customer(User)</SelectItem>
+              <SelectContent className="bg-green-400 text-white border-white/20">
+                <SelectItem value="Customer">User</SelectItem>
+                <SelectItem value="Vendor">Kishan</SelectItem>
               </SelectContent>
             </Select>
             {formik.touched.role && formik.errors.role && (
@@ -215,24 +197,23 @@ export default function RegisterPage() {
         <div className="pt-4">
           <Button
             type="submit"
-            className="w-full bg-white text-black hover:bg-white/90 transition-all duration-200"
-            disabled={formik.isSubmitting}
+            className="w-full bg-green-400 text-white hover:bg-green-300 transition-all duration-200 py-[20px] px-[30px]"
           >
             {formik.isSubmitting ? "Creating Account..." : "Create Account"}
           </Button>
-          <div className="mt-6 text-center">
-            <p className="text-sm text-gray-400">
-              Already have an account?
-              <button
-                onClick={() => router.push("/login")}
-                className="text-white hover:underline"
-              >
-                Click to Login
-              </button>
-            </p>
-          </div>
         </div>
       </form>
+      <div className="mt-6 text-center">
+        <p className="text-sm text-black">
+          Already have an account?
+          <button
+            onClick={() => router.push("/login")}
+            className="text-blue-500 hover:underline"
+          >
+            Click to Login
+          </button>
+        </p>
+      </div>
     </div>
   );
 }
