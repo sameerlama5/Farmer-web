@@ -43,7 +43,7 @@ All users need to provide the following information:
 - Can immediately start shopping
 
 #### Vendor Registration
-- Initial registration with business details
+- Initial registration with business details(in future)
 - Pending status until admin approval
 - Email notification upon approval/rejection
 
@@ -81,5 +81,6 @@ JWT_SECRET=your_jwt_secret
 
 4. Run the development server
 ```bash
+npm i express
 npm run dev
 ```

@@ -49,7 +49,7 @@ export default function RegisterPage() {
       fullName: "",
       password: "",
       role: "",
-      addressName: "",
+      address: "",
     },
     validationSchema,
     onSubmit: async (values, { resetForm }) => {
@@ -75,19 +75,19 @@ export default function RegisterPage() {
   const router = useRouter();
 
   return (
-    <div className="max-w-2xl mx-auto backdrop-blur-sm rounded-2xl  p-8 border-[2px] border-green-400">
+    <div className="max-w-2xl mx-auto backdrop-blur-sm rounded-2xl  p-8 border-[2px] border-[#0A490A]">
       <form onSubmit={formik.handleSubmit} className="space-y-6">
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           <div className="space-y-2">
             <Label htmlFor="fullName">Full Name</Label>
             <div className="relative">
-              <User className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
+              <User className="absolute left-3 top-3 h-5 w-5 text-[#0A490A]" />
               <Input
                 id="fullName"
                 name="fullName"
                 type="text"
                 placeholder="John Doe"
-                className="bg-white border-[2px] border-green-400 text-gray-400 py-[20px] px-[30px] outline-none"
+                className="bg-white border-[2px] border-[#0A490A] text-gray-400 py-[20px] px-[30px] outline-none"
                 {...formik.getFieldProps("fullName")}
               />
             </div>
@@ -99,13 +99,13 @@ export default function RegisterPage() {
           <div className="space-y-2">
             <Label htmlFor="email">Email</Label>
             <div className="relative">
-              <Mail className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
+              <Mail className="absolute left-3 top-3 h-5 w-5 text-[#0A490A]" />
               <Input
                 id="email"
                 name="email"
                 type="email"
                 placeholder="you@example.com"
-                className="bg-white border-[2px] border-green-400 text-gray-400 py-[20px] px-[30px] outline-none"
+                className="bg-white border-[2px] border-[#0A490A] text-gray-400 py-[20px] px-[30px] outline-none"
                 {...formik.getFieldProps("email")}
               />
             </div>
@@ -117,13 +117,13 @@ export default function RegisterPage() {
           <div className="space-y-2">
             <Label htmlFor="phoneNumbe">Phone Number</Label>
             <div className="relative">
-              <Phone className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
+              <Phone className="absolute left-3 top-3 h-5 w-5 text-[#0A490A]" />
               <Input
                 id="phoneNumber"
                 name="phoneNumber"
                 type="tel"
                 placeholder="1234567890"
-                className="bg-white border-[2px] border-green-400 text-gray-400 py-[20px] px-[30px] outline-none"
+                className="bg-white border-[2px] border-[#0A490A] text-gray-400 py-[20px] px-[30px] outline-none"
                 {...formik.getFieldProps("phoneNumber")}
               />
             </div>
@@ -137,13 +137,13 @@ export default function RegisterPage() {
           <div className="space-y-2">
             <Label htmlFor="password">Password</Label>
             <div className="relative">
-              <Lock className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
+              <Lock className="absolute left-3 top-3 h-5 w-5 text-[#0A490A]" />
               <Input
                 id="password"
                 name="password"
                 type="password"
                 placeholder="••••••••"
-                className="bg-white border-[2px] border-green-400 text-gray-400 py-[20px] px-[30px] outline-none"
+                className="bg-white border-[2px] border-[#0A490A] text-gray-400 py-[20px] px-[30px] outline-none"
                 {...formik.getFieldProps("password")}
               />
             </div>
@@ -155,13 +155,13 @@ export default function RegisterPage() {
           <div className="space-y-2">
             <Label htmlFor="addressName">Address</Label>
             <div className="relative">
-              <Users className="absolute left-3 top-3 h-5 w-5 text-green-400" />
+              <Users className="absolute left-3 top-3 h-5 w-5 text-[#0A490A]" />
               <Input
                 id="addressName"
                 name="addressName"
                 type="text"
                 placeholder="Address"
-                className="bg-white border-[2px] border-green-400 text-gray-400 py-[20px] px-[30px] outline-none"
+                className="bg-white border-[2px] border-[#0A490A] text-gray-400 py-[20px] px-[30px] outline-none"
                 {...formik.getFieldProps("addressName")}
               />
             </div>
@@ -180,10 +180,10 @@ export default function RegisterPage() {
                 formik.setFieldValue("role", value, true)
               }
             >
-              <SelectTrigger className="bg-white border-[2px] border-green-400 text-gray-400 py-[20px] px-[30px] outline-none">
+              <SelectTrigger className="bg-white border-[2px] border-[#0A490A] text-gray-400 py-[20px] px-[30px] outline-none">
                 <SelectValue placeholder="Select your role" />
               </SelectTrigger>
-              <SelectContent className="bg-green-400 text-white border-white/20">
+              <SelectContent className="bg-[#0A490A] text-white border-white/20">
                 <SelectItem value="Customer">User</SelectItem>
                 <SelectItem value="Vendor">Kishan</SelectItem>
               </SelectContent>
@@ -197,7 +197,7 @@ export default function RegisterPage() {
         <div className="pt-4">
           <Button
             type="submit"
-            className="w-full bg-green-400 text-white hover:bg-green-300 transition-all duration-200 py-[20px] px-[30px]"
+            className="w-full bg-[#0A490A] text-white hover:bg-[#0A490A]/60 transition-all duration-200 py-[20px] px-[30px]"
           >
             {formik.isSubmitting ? "Creating Account..." : "Create Account"}
           </Button>

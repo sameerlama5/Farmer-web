@@ -9,14 +9,14 @@ const AuthPagesLayout = ({ children }) => {
           <div className="text-center space-y-4 mb-12">
             <div className="flex justify-center mb-6">
               <Image
-                src="/logo.png"
+                src="/logo-farmer.jpg"
                 alt="Farmer Logo"
                 width={120}
                 height={120}
                 className="rounded-lg"
               />
             </div>
-            <h1 className="text-4xl text-green-400 font-bold tracking-tight">Farmer</h1>
+            <h1 className="text-4xl text-[#0A490A] font-bold">Farmer</h1>
             <p className="text-lg text-gray-400">Smart Farmer Solution</p>
           </div>
           {children}
