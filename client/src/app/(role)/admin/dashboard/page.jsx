@@ -18,7 +18,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import Approval from "@/components/vendor-list";
-import DashboardHeader from "@/components/dashboardHeader";
+import DashboardHeader from "@/components/dashboard-header";
 
 export default function AdminDashboard() {
   return (

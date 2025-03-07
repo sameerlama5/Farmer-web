@@ -35,7 +35,7 @@ const validationSchema = Yup.object({
   fullName: Yup.string()
     .min(2, "Name must be at least 2 characters")
     .required("Full name is required"),
-  addressName: Yup.string()
+  address: Yup.string()
     .min(1, "Address name must be at least 1 characters")
     .required("Address name is required"),
 });
@@ -162,7 +162,7 @@ export default function RegisterPage() {
                 type="text"
                 placeholder="Address"
                 className="bg-white border-[2px] border-[#0A490A] text-gray-400 py-[20px] px-[30px] outline-none"
-                {...formik.getFieldProps("addressName")}
+                {...formik.getFieldProps("address")}
               />
             </div>
             {formik.touched.addressName && formik.errors.addressName && (

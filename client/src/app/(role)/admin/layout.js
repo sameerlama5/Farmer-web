@@ -15,7 +15,7 @@ const sidebarItems = [
     label: "Dashboard",
     icon: <LayoutDashboard size={20} />,
   },
-  { href: "/admin/user", label: "Users", icon: <Users size={20} /> },
+  { href: "/admin/users", label: "Users", icon: <Users size={20} /> },
   {
     href: "/admin/adminApproval",
     label: "admin Approvals",
