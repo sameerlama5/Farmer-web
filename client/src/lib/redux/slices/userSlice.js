@@ -4,7 +4,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const loadFromLocalStorage = () => {
   try {
     const serializedState = localStorage.getItem('userState');
-    if (serializedState === null) return { token: "", userDetails: {}, isLoggednIn: false }; // Default state
+    if (serializedState === null) return { token: "", userDetails: {}, isLoggednIn: false };
     return JSON.parse(serializedState);
   } catch (err) {
     console.error("Could not load state from localStorage", err);

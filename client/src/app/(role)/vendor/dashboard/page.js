@@ -19,7 +19,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import DashboardHeader from "@/components/dashboardHeader";
+import DashboardHeader from "@/components/dashboard-header";
 
 export default function VendorDashboard() {
   return (
